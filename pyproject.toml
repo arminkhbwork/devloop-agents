@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devloop-agents"
+version = "0.1.0"
+description = "Portable coding, QA, and monitoring agents for issue-driven software delivery"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Armin Khabazha" }]
+keywords = ["ai-agents", "agentic-sdlc", "developer-tools", "quality-assurance", "monitoring"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.scripts]
+devloop = "devloop_agents.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/arminkhbwork/devloop-agents"
+Issues = "https://github.com/arminkhbwork/devloop-agents/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+devloop_agents = ["templates/*.md", "templates/*.toml"]

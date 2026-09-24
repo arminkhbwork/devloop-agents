@@ -1,0 +1,42 @@
+[project]
+name = "My application"
+workspace = "."
+default_branch = "main"
+target_url = "http://localhost:3000"
+
+[tracker]
+provider = "local"
+repository = ""
+token_env = "GITHUB_TOKEN"
+data_file = ".devloop/issues.json"
+publish_agent_output = false
+
+[runner]
+provider = "dry-run"
+command = []
+timeout_seconds = 1800
+pass_env = ["PATH", "LANG", "LC_ALL", "TMPDIR"]
+
+[pipeline]
+poll_interval_seconds = 60
+max_items_per_cycle = 1
+require_human_review = true
+allow_merge = false
+allow_deploy = false
+
+[storage]
+state_path = ".devloop/state.db"
+events_path = ".devloop/events.jsonl"
+artifacts_path = ".devloop/artifacts"
+
+[budget]
+monthly_usd = 50.0
+warn_at_percent = 80.0
+
+[[probes]]
+name = "Application health"
+kind = "http"
+target = "http://localhost:3000/health"
+expected_status = 200
+timeout_seconds = 10
+severity = "high"

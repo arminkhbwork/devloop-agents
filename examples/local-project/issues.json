@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Return a helpful message from the greeting function",
+    "body": "Acceptance criteria:\n- greet('Ada') returns 'Hello, Ada!'\n- an empty name raises ValueError\n- tests cover both paths",
+    "labels": ["agent:code"],
+    "comments": []
+  },
+  {
+    "id": 2,
+    "title": "Verify the greeting behavior",
+    "body": "Validate the named-user response, empty-name validation, and regression tests.",
+    "labels": ["agent:qa"],
+    "comments": []
+  }
+]
+

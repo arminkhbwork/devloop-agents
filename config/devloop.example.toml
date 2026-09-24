@@ -1,0 +1,74 @@
+[project]
+name = "Example application"
+workspace = "../examples/local-project"
+default_branch = "main"
+target_url = "http://localhost:3000"
+
+[tracker]
+# Start with "local" for a no-token demo. Change to "github" and set
+# repository = "owner/repository" when you are ready to use GitHub Issues.
+provider = "local"
+repository = ""
+token_env = "GITHUB_TOKEN"
+data_file = "../examples/local-project/issues.json"
+# Agent output stays local by default. Enable only after reviewing your secret
+# isolation and deciding issue readers may see model-generated text.
+publish_agent_output = false
+
+[tracker.labels.coder]
+queued = "agent:code"
+claimed = "agent:in-progress"
+completed = "agent:review"
+blocked = "agent:blocked"
+
+[tracker.labels.qa]
+queued = "agent:qa"
+claimed = "agent:qa-running"
+completed = "agent:verified"
+blocked = "agent:changes-requested"
+
+[tracker.labels.monitor]
+incident = "agent:incident"
+managed = "agent:monitor"
+
+[runner]
+# "dry-run" prints the full agent task without executing an AI tool.
+# For a real integration, set provider = "command" and configure any headless
+# agent that accepts its prompt on stdin, for example:
+# command = ["codex", "exec", "--full-auto", "-"]
+# command = ["claude", "--print"]
+provider = "dry-run"
+command = []
+timeout_seconds = 1800
+pass_env = ["PATH", "LANG", "LC_ALL", "TMPDIR"]
+
+[pipeline]
+poll_interval_seconds = 60
+max_items_per_cycle = 1
+require_human_review = true
+allow_merge = false
+allow_deploy = false
+
+[storage]
+state_path = "../.devloop/state.db"
+events_path = "../.devloop/events.jsonl"
+artifacts_path = "../.devloop/artifacts"
+
+[budget]
+monthly_usd = 50.0
+warn_at_percent = 80.0
+
+[[probes]]
+name = "Example health endpoint"
+kind = "http"
+target = "https://example.com"
+expected_status = 200
+timeout_seconds = 10
+severity = "high"
+
+[[probes]]
+name = "Repository tests"
+kind = "command"
+target = "python -m unittest discover -s tests"
+timeout_seconds = 120
+severity = "medium"

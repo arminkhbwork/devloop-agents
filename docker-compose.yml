@@ -1,0 +1,46 @@
+services:
+  coder:
+    build: .
+    command: ["--config", "/config/devloop.toml", "run", "coder", "--loop", "--apply"]
+    restart: unless-stopped
+    volumes:
+      - ${PROJECT_PATH:?Set PROJECT_PATH}:/workspace
+      - ./devloop.toml:/config/devloop.toml:ro
+      - devloop-data:/data
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+
+  qa:
+    build: .
+    command: ["--config", "/config/devloop.toml", "run", "qa", "--loop", "--apply"]
+    restart: unless-stopped
+    volumes:
+      - ${PROJECT_PATH:?Set PROJECT_PATH}:/workspace:ro
+      - ./devloop.toml:/config/devloop.toml:ro
+      - devloop-data:/data
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+
+  monitor:
+    build: .
+    command: ["--config", "/config/devloop.toml", "run", "monitor", "--loop", "--apply"]
+    restart: unless-stopped
+    volumes:
+      - ${PROJECT_PATH:?Set PROJECT_PATH}:/workspace:ro
+      - ./devloop.toml:/config/devloop.toml:ro
+      - devloop-data:/data
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+
+  dashboard:
+    build: .
+    command: ["--config", "/config/devloop.toml", "dashboard", "--host", "0.0.0.0"]
+    ports:
+      - "127.0.0.1:8765:8765"
+    volumes:
+      - ${PROJECT_PATH:?Set PROJECT_PATH}:/workspace:ro
+      - ./devloop.toml:/config/devloop.toml:ro
+      - devloop-data:/data:ro
+
+volumes:
+  devloop-data:
