@@ -1,5 +1,9 @@
 # DevLoop Agents
 
+[![CI](https://github.com/arminkhbwork/devloop-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/arminkhbwork/devloop-agents/actions/workflows/ci.yml)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg)](LICENSE)
+
 **A portable, observable control plane for AI coding, QA, and service-monitoring agents.**
 
 DevLoop Agents turns issues and health signals into reviewable engineering work. It coordinates three focused roles through one configuration file, records every run in an append-only event ledger, prevents duplicate work with leases, and keeps merge and deployment decisions behind a human gate.
@@ -7,6 +11,8 @@ DevLoop Agents turns issues and health signals into reviewable engineering work.
 The project grew from a production automation system and was rebuilt as a standalone public toolkit. It has no dependency on a specific product, private Jira workspace, hosting platform, or AI provider.
 
 ![DevLoop Agents local operations dashboard](docs/assets/dashboard.png)
+
+[Explore the project case study](https://arminkhabazha.com/projects/devloop-agents).
 
 ## What it does
 
